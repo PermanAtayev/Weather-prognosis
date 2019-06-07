@@ -69,12 +69,6 @@ app.get( "/weather", ( req, res ) => {
          } )
         
     } )
-
-
-    // res.send( {
-    //     "location": req.query.address,
-    //     "forecast": "The weather is good"
-    // } )
 } )
 
 app.get( "/products", (req, res) => {
