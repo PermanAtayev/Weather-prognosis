@@ -1,12 +1,10 @@
 const path = require('path');
-
 const geocode = require( './utils/geocode' );
 const forecast = require( './utils/forecast' );
-
 const express = require( 'express' );
-
 const app = express();
 const hbs = require( 'hbs' );
+const port = process.env.PORT || 3000;
 
 // Setup handlebars
 app.set('views', path.join(__dirname, '../templates/views'));
@@ -94,6 +92,8 @@ app.get( "*", (req, res) => {
     });     
 } )
 
-app.listen( 3000, () => {
-    console.log( "Server is running on 3000" );
+
+
+app.listen( port, () => {
+    console.log( "Server is running on " + port );
 } )
