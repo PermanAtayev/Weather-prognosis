@@ -1,4 +1,4 @@
-# weather-web-server-node.js
+# weather-web-application
 Simple weather forecast application.
 Sample deployment of the web-server can be found [here](https://weather-app-node-js-1.herokuapp.com/)
 
