@@ -1,6 +1,6 @@
 # weather-web-application
 Simple weather forecast application.
-Sample deployment of the web-server can be found [here](https://weather-app-node-js-1.herokuapp.com/)
+Sample deployment of the web-server can be found [here](https://marvelous-zion-57603.herokuapp.com/)
 
 ## Third-party libraries:
 Following is a list of third-party libraries used in building this web service:
