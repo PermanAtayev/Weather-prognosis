@@ -16,7 +16,7 @@ app.set( "view engine", "hbs"  );
 // static directory to serve
 app.use( express.static( path.join( __dirname, "../public" ) ) );
 
-app.get( "", (req, res) => {
+app.get("", (req, res) => {
     res.render( "index.hbs", {
         title: "Weather App",
         name: "Perman Atayev"
@@ -37,36 +37,58 @@ app.get( "/help", (req, res) => {
     })
 } )
 
-app.get( "/weather", ( req, res ) => {
-    if( !req.query.address ){
+/*
+[get the weather forecast endpoint]
+input must contain a location that will be converted to latitude and longtitude
+ */
+app.get( "/weather", async ( req, res ) => {
+    if( !req.query.address && !req.query.longitude ){
         return res.send(
             {
                 error: "Address must be provided"
             }
         )
     }
+
+    if(req.query.address){
     const location = req.query.address;
+    geocode( location, function( error, { latitude, longitude, location } = {} ) {
+            if( error )
+                return res.send( { error } );
 
-    geocode( location, ( error, { latitude, longtitude, location } = {} ) => {
-        if( error )
-            return res.send( { error } );
+            if( location.length === 0 )
+                return res.send( { error: "Please enter a valid location" } );
 
-        if( location.length === 0 ){
-            return res.send( { error: "Please enter a valid location" } );
-        }
+            forecast(latitude, longitude, (error, response) => {
+                if (error)
+                    return res.send({error});
 
-        forecast( latitude, longtitude, ( error, response ) => {
-                if( error )
-                    return res.send( { error } );
-                
-                console.log( location );
-                return res.send( {
+                console.log(location);
+                return res.send({
                     forecast: response,
                     location
-                } )    
-         } )
-        
-    } )
+                })
+            })
+        } )
+    }
+    else if(req.query.longitude) {
+        const longitude = req.query.longitude
+        const latitude  = req.query.latitude
+
+        console.log(longitude, latitude)
+
+        await forecast(latitude, longitude, (error, response) => {
+            if (error)
+                return res.send({error});
+
+            return res.send({
+                forecast: response,
+                location: "Latitude: " + latitude + " longitude: " + longitude
+            })
+        })
+    }
+
+
 } )
 
 app.get( "/products", (req, res) => {
@@ -95,5 +117,5 @@ app.get( "*", (req, res) => {
 
 
 app.listen( port, () => {
-    console.log( "Server is running on " + port );
+    console.log( "Server is running on localhost:" + port );
 } )

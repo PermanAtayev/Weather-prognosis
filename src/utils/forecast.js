@@ -8,7 +8,7 @@ const forecast = ( x, y, callback ) => {
             callback( 'No internet connection' );
         }
         else if( body.error ){
-            callback( response.body.error );
+            callback( body.error );
         }
         else{
             data = body.daily.data[ 0 ].summary + `The temperature today is ${body.currently.temperature} Celsius and ${body.currently.precipProbability}% of the rain`;    
