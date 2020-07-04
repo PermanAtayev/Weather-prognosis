@@ -18,7 +18,7 @@ app.use( express.static( path.join( __dirname, "../public" ) ) );
 
 app.get( "", (req, res) => {
     res.render( "index.hbs", {
-        title: "Weather",
+        title: "Weather App",
         name: "Perman Atayev"
     });
 } )
@@ -87,7 +87,7 @@ app.get("/help/*", (req, res) => {
 
 app.get( "*", (req, res) => {
     res.render( "404.hbs", {
-        title: "404",
+        title: "Page not found - 404",
         name: "Perman Atayev"
     });     
 } )
